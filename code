@@ -1,0 +1,57 @@
+import time
+
+def minuteur(duree):
+    """Fonction pour un minuteur (compte à rebours)."""
+    while duree:
+        heures, reste = divmod(duree, 3600)
+        minutes, secondes = divmod(reste, 60)
+        timer = f"{heures:02}:{minutes:02}:{secondes:02}"
+        print(timer, end="\r")
+        time.sleep(1)
+        duree -= 1
+    print("Temps écoulé !")
+
+def chronometre():
+    """Fonction pour un chronomètre (compte le temps écoulé)."""
+    input("Appuyez sur Entrée pour démarrer le chronomètre.")
+    debut = time.time()
+    print("Chronomètre démarré... Appuyez sur Ctrl+C pour arrêter.")
+    
+    try:
+        while True:
+            temps_ecoule = time.time() - debut
+            heures, reste = divmod(temps_ecoule, 3600)
+            minutes, secondes = divmod(reste, 60)
+            timer = f"{int(heures):02}:{int(minutes):02}:{int(secondes):02}"
+            print(timer, end="\r")
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\nChronomètre arrêté.")
+        print(f"Temps total écoulé : {timer}")
+
+def afficher_menu():
+    print("1. Minuteur (Timer)")
+    print("2. Chronomètre (Stopwatch)")
+    print("3. Quitter")
+
+def main():
+    while True:
+        afficher_menu()
+        choix = input("Choisissez une option (1-3) : ")
+        
+        if choix == "1":
+            duree = int(input("Entrez la durée en secondes : "))
+            minuteur(duree)
+        
+        elif choix == "2":
+            chronometre()
+        
+        elif choix == "3":
+            print("Au revoir !")
+            break
+        
+        else:
+            print("Option invalide. Veuillez choisir une option entre 1 et 3.")
+
+if __name__ == "__main__":
+    main()
